@@ -33,7 +33,6 @@ import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun CoinDetailScreen(
-   navController: NavController,
    coinDetailViewModel: CoinDetailViewModel = hiltViewModel()
    ){
 

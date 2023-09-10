@@ -4,6 +4,7 @@ import com.example.cryptocurrency_app.common.Constants.BASE_URL
 import com.example.cryptocurrency_app.data.remote.dto.CoinPaprikaApi
 import com.example.cryptocurrency_app.data.repository.CoinRepositoryImpl
 import com.example.cryptocurrency_app.domain.repository.CoinRepository
+import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,14 +13,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@HiltViewModel
+@Module
 @InstallIn(SingletonComponent::class)
-object AppModule{
-
+object AppModule {
 
     @Provides
     @Singleton
-    fun providesPaprikaApi() : CoinPaprikaApi{
+    fun providePaprikaApi(): CoinPaprikaApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -29,8 +29,7 @@ object AppModule{
 
     @Provides
     @Singleton
-    fun provideCoinRepository(api: CoinPaprikaApi) : CoinRepository {
+    fun provideCoinRepository(api: CoinPaprikaApi): CoinRepository {
         return CoinRepositoryImpl(api)
     }
-
 }
