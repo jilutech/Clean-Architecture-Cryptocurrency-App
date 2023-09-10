@@ -18,7 +18,6 @@ class GetCoinsUseCase @Inject constructor(
 ){
 
 
-    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     operator fun invoke() : Flow<Resource<List<Coin>>> = flow {
         try {
 
@@ -27,7 +26,7 @@ class GetCoinsUseCase @Inject constructor(
             val coins = coinRepository.getCoins().map { it.toCoin() }
             emit(Resource.Success(coins))
 
-        } catch (e : HttpException){
+        } catch (e : retrofit2.HttpException){
             emit(Resource.Error(e.localizedMessage ?: "An UnExpected Error"))
         } catch (e : IOException){
             emit(Resource.Error("Could not reach Server,Check Connection"))
